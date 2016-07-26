@@ -1,0 +1,91 @@
+body {
+  padding: 50px;
+  max-width: 100%;
+  overflow-x: hidden;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: black;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.title {
+  font-size: 4em;
+  font-family: 'Faster One', cursive;
+  color: #f5c710;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.footer img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#dancefloor {
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  position: relative;
+}
+
+/* Bounce Animation */
+
+.gopher {
+  left: 10px;
+  top: 10px;
+  position: absolute;
+}
+
+.gopher-bounce {  
+  -webkit-animation: bounce 2000ms ease-out;
+  -moz-animation: bounce 2000ms ease-out;
+  animation: bounce 2000ms ease-out;
+  animation-iteration-count: infinite;
+}
+
+
+@-webkit-keyframes bounce {
+
+  15% {
+    -webkit-transform:translateY(0);
+    padding-bottom: 5px;
+  }
+  30% {
+    -webkit-transform:translateY(-30%);
+  }
+  40% {
+    -webkit-transform:translateY(0%);
+    padding-bottom: 6px;
+  }
+  50% {
+    -webkit-transform:translateY(-20%);
+  }
+  70% {
+    -webkit-transform:translateY(0%);
+    padding-bottom: 7px;
+  }
+  80% {
+    -webkit-transform:translateY(-15%);
+  }
+  90% {
+    -webkit-transform:translateY(0%);
+    padding-bottom: 8px;
+  }
+  95% {
+    -webkit-transform:translateY(-10%);
+  }
+  97% {
+    -webkit-transform:translateY(0%);
+    padding-bottom: 9px;
+  }
+  99% {
+    -webkit-transform:translateY(-5%);
+  }
+  100% {
+    -webkit-transform:translateY(0);
+    padding-bottom: 9px;
+  }
+}
