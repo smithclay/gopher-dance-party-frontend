@@ -23,5 +23,5 @@ USER app
 EXPOSE 3000
 
 # Run the node.js app
-CMD ["node app.js"]
+CMD ["node", "app.js"]
 

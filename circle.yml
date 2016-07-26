@@ -1,0 +1,29 @@
+machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  services:
+    - docker
+  environment:
+    VERSION: $CIRCLE_BUILD_NUM.git.$CIRCLE_SHA1
+    IMAGE: smithclay/gopher-dance-party-frontend
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+  override:
+    - docker info
+    - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
+    - docker build -t ${IMAGE}:${VERSION} .
+    - mkdir -p ~/docker; docker save ${IMAGE} > ~/docker/image.tar
+
+test:
+  override:
+    - docker run -d -p 3000:3000 ${IMAGE}:${VERSION}; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push ${IMAGE}:${VERSION}
