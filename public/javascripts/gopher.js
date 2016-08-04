@@ -6,14 +6,21 @@
     this.el = document.createElement('div');
     this.el.id = this.id;
     this.el.className = 'gopher gopher-bounce';
-    this.el.innerHTML = '<img src="images/wombat.png" height="250"/>';
+
+    this.GOPHER_HEIGHT = 250;
+    this.GOPHER_WIDTH = 183;
+
+    var creature = document.getElementById('creature').cloneNode(false);
+    creature.style.display = '';
+    creature.style.height = this.GOPHER_HEIGHT + 'px';
+
+    this.el.appendChild(creature);
     this.socket = socket;
 
     this.setX(Math.random() * 300);
     this.setY(Math.random() * 300)
 
-    this.GOPHER_HEIGHT = 250;
-    this.GOPHER_WIDTH = 183;
+
   }
 
   Gopher.prototype.setX = function(x) {
