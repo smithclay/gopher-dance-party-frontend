@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Gopher Dance Party' });
+  res.render('index', { title: 'Cascadia Wombat Dance Party' });
 });
 
 var lookupD
