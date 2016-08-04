@@ -1,4 +1,4 @@
-require('newrelic');
+var newrelic = require('newrelic');
 
 var express = require('express');
 
@@ -13,6 +13,7 @@ var session = require('express-session')
 var routes = require('./routes/index');
 
 var app = express();
+app.locals.newrelic = newrelic;
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
