@@ -19,8 +19,6 @@
 
     this.setX(Math.random() * 300);
     this.setY(Math.random() * 300)
-
-
   }
 
   Gopher.prototype.setX = function(x) {
