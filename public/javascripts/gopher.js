@@ -6,14 +6,19 @@
     this.el = document.createElement('div');
     this.el.id = this.id;
     this.el.className = 'gopher gopher-bounce';
-    this.el.innerHTML = '<img src="images/gopher.png" height="250"/>';
+
+    this.GOPHER_HEIGHT = 250;
+    this.GOPHER_WIDTH = 183;
+
+    var creature = document.getElementById('creature').cloneNode(false);
+    creature.style.display = '';
+    creature.style.height = this.GOPHER_HEIGHT + 'px';
+
+    this.el.appendChild(creature);
     this.socket = socket;
 
     this.setX(Math.random() * 300);
     this.setY(Math.random() * 300)
-
-    this.GOPHER_HEIGHT = 250;
-    this.GOPHER_WIDTH = 183;
   }
 
   Gopher.prototype.setX = function(x) {
@@ -24,6 +29,19 @@
   Gopher.prototype.setY = function(y) {
     this.y = y;
     this.el.style.top = this.y + 'px';
+  }
+
+  Gopher.prototype.setActiveSession = function(isActiveSession) {
+    if (this.isActiveSession) {
+      return;
+    }
+
+    this.isActiveSession = true;
+    var textNode = document.createElement('p');
+    textNode.style.color = 'white';
+    textNode.style.textAlign = 'center';
+    textNode.innerText = "you";
+    this.el.appendChild(textNode);
   }
 
   Gopher.prototype.move = function(x, y) {

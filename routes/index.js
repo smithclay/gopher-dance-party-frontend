@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Gopher Dance Party' });
+  res.render('index', { img: process.env.CREATURE_IMAGE || 'images/gopher.png', title: process.env.DANCE_PARTY_TITLE || 'Generic Dance Party' });
 });
 
 var lookupD

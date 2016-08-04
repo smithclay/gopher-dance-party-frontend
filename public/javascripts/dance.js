@@ -59,6 +59,7 @@ var socket = io();
   });
 
   var gopher = new Gopher(socket);
+  gopher.setActiveSession(true);
   document.getElementById('dancefloor').appendChild(gopher.el);
   socket.emit('add', {id: gopher.id, x: gopher.x, y: gopher.y});
   
