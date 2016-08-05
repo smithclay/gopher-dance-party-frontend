@@ -2,7 +2,6 @@ var socket = io();
 
 (function() {
   var gophers = {};
-  const KEYPRESS_PIXEL_MOVEMENT = 5;
 
   var initalizeGopherFromJson = function(json) {
       if (gophers[json.id]) {
@@ -71,27 +70,9 @@ var socket = io();
     }
   });
 
-  function keyboardMove(evt) {
-    switch (evt.keyCode) {
-      case 37:
-      gopher.move(-KEYPRESS_PIXEL_MOVEMENT, 0);
-      break;
-      case 39:
-      gopher.move(KEYPRESS_PIXEL_MOVEMENT, 0);
-      break;
-      case 38:
-      gopher.move(0, -KEYPRESS_PIXEL_MOVEMENT);
-      break;
-      case 40:
-      gopher.move(0, KEYPRESS_PIXEL_MOVEMENT);
-      break;
-    }
-  }
-
   function unload() {
     socket.emit('del', {id: gopher.id});
   }
 
   window.addEventListener('unload', unload);
-  window.addEventListener('keydown', keyboardMove);
 })();
