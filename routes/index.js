@@ -7,7 +7,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { img: process.env.CREATURE_IMAGE || 'images/gopher.png', title: process.env.DANCE_PARTY_TITLE || 'Generic Dance Party' });
 });
 
-var lookupD
+router.get('/performance', function(req, res, next) {
+  res.render('perf');
+});
 
 // TODO: Extract into REST API/API Gateway?
 router.get('/bootstrap', function(req, res, next) {

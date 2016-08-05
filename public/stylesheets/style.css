@@ -10,6 +10,12 @@ a {
   color: #00B7FF;
 }
 
+iframe {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 p {
   color: white;
   text-align: center;
