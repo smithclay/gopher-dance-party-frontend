@@ -7,7 +7,7 @@
     this.id = id || ('id-' + Math.floor(Math.random() * 32768));
     this.el = document.createElement('div');
     this.el.id = this.id;
-    this.el.className = 'gopher gopher-bounce';
+    this.el.className = 'gopher';
 
     this.GOPHER_HEIGHT = 250;
     this.GOPHER_WIDTH = 183;
@@ -21,6 +21,7 @@
 
     this.setX(Math.random() * 300);
     this.setY(Math.random() * 300);
+    this.bounce();
   }
 
   Gopher.prototype._setupTouchEvents = function() {
@@ -47,6 +48,9 @@
         break;
         case 40:
         that.move(0, KEYPRESS_PIXEL_MOVEMENT);
+        break;
+        case 66:
+        that.bounce();
         break;
       }
     }
@@ -114,6 +118,23 @@
     var y = top + y;
 
     this.setPosition(x, y);
+  };
+
+  Gopher.prototype.bounce = function() {
+    if (this.isBouncing) {
+      return;
+    }
+    var that = this;
+    this.el.className = 'gopher gopher-bounce';
+    this.isBouncing = true;
+
+    // TODO: Remove from here
+    this.socket.emit('bounce', {id: this.id});
+
+    setTimeout(function() {
+      that.el.className = 'gopher';
+      that.isBouncing = false;
+    }, 2000);
   };
 
   Gopher.prototype.randomMove = function() {

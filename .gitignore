@@ -32,6 +32,8 @@ build/Release
 node_modules
 jspm_packages
 
+.vs_code/
+
 # Optional npm cache directory
 .npm
 

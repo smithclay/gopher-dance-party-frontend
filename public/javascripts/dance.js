@@ -43,6 +43,19 @@ var socket = io();
     }
   });
   
+  socket.on('bounce', function(json){
+    try {
+      var gopher = gophers[json.id];
+      if (gopher) {
+        gopher.bounce();
+      } else {
+        console.log('error finding gopher, creating: ', json.id);
+        initalizeGopherFromJson(json);
+      }
+    } catch (e) {
+    }
+  });
+
   socket.on('move', function(json){
     try {
       var gopher = gophers[json.id];
