@@ -22,7 +22,7 @@ USER app
 
 EXPOSE 3000
 
-HEALTHCHECK CMD curl --fail http://localhost:3000/bootstrap || exit 1
+#HEALTHCHECK CMD curl --fail http://localhost:3000/bootstrap || exit 1
 
 # Run the node.js app
 CMD ["node", "app.js"]
