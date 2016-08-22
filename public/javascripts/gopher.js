@@ -137,7 +137,7 @@
   };
 
   Gopher.prototype.randomMove = function() {
-    this.move(Math.floor(Math.random() * 5), Math.floor(Math.random() * 5));
+    this.move(Math.floor(Math.random() * 15), Math.floor(Math.random() * 15));
   };
 
   window.Gopher = Gopher;
