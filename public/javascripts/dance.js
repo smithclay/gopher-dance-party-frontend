@@ -70,11 +70,16 @@ var socket = io();
     }
   });
 
+  // Create new Gopher for current session.
   var gopher = new Gopher(socket);
   gopher.setActiveSession(true);
+  gophers[gopher.id] = gopher;
   document.getElementById('dancefloor').appendChild(gopher.el);
   socket.emit('add', {id: gopher.id, x: gopher.x, y: gopher.y});
-  
+  setTimeout(function() {
+    gopher.bounce();
+  }, 1000);
+
   // Fetch and initialize existing gophers
   $.getJSON('/bootstrap', function(data) {
     for (var k in data) {

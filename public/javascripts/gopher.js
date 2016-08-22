@@ -21,7 +21,6 @@
 
     this.setX(Math.random() * 300);
     this.setY(Math.random() * 300);
-    this.bounce();
   }
 
   Gopher.prototype._setupTouchEvents = function() {

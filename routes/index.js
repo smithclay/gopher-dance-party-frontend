@@ -1,5 +1,7 @@
 var express = require('express');
 var request = require('request');
+var nr = require('newrelic');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -18,13 +20,13 @@ router.get('/performance', function(req, res, next) {
 router.get('/bootstrap', function(req, res, next) {
   // TODO: Replace with consul lookup
   const STATE_SERVER = `http://${process.env.STATE_SERVER}` || 'http://dancefloor:5001';
-  request({url: `${STATE_SERVER}/fetch`}, function(error, response, body) {
+  request({url: `${STATE_SERVER}/fetch`}, nr.createTracer('dancefloor/fetch', function(error, response, body) {
     if (error) {
       console.log('could not get state from', STATE_SERVER);
       return res.status(500).send({error: error});
     }
     return res.set('Content-Type', 'text/json').status(200).send(body);
-  });
+  }));
 });
 
 module.exports = router;
