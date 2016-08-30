@@ -70,32 +70,38 @@ var socket = io();
     }
   });
 
+  var createGopher = function(socket) {
+    // Create new Gopher for current session (must be connected to the socket).
+    var gopher = new Gopher(socket, socket.id);
+    gopher.setActiveSession(true);
+    gophers[gopher.id] = gopher;
+    document.getElementById('dancefloor').appendChild(gopher.el);
+    socket.emit('add', {id: gopher.id, x: gopher.x, y: gopher.y});
+    gopher.bounce();
+
+    if (typeof newrelic == 'object') {
+      newrelic.setCustomAttribute('gopher-id', gopher.id);
+    }
+
+    if (window.location.hash === '#autodance') {
+      setInterval(function() {
+        gopher.randomMove();
+      }, 5000);
+      setInterval(function() {
+        gopher.bounce();
+      }, 15000);
+    }
+  }
+
   socket.on('connect', function() {
+    createGopher(socket);
+
     if (typeof newrelic == 'object') {
       newrelic.setCustomAttribute('socket-transport', socket.io.engine.transport.name);
     }
   });
 
-  // Create new Gopher for current session.
-  var gopher = new Gopher(socket);
-  gopher.setActiveSession(true);
-  gophers[gopher.id] = gopher;
-  document.getElementById('dancefloor').appendChild(gopher.el);
-  socket.emit('add', {id: gopher.id, x: gopher.x, y: gopher.y});
-  gopher.bounce();
 
-  if (typeof newrelic == 'object') {
-    newrelic.setCustomAttribute('gopher-id', gopher.id);
-  }
-
-  if (window.location.hash === '#autodance') {
-    setInterval(function() {
-      gopher.randomMove();
-    }, 5000);
-    setInterval(function() {
-      gopher.bounce();
-    }, 15000);
-  }
 
   // Fetch and initialize existing gophers
   $.getJSON('/bootstrap', function(data) {
@@ -104,11 +110,4 @@ var socket = io();
       initalizeGopherFromJson({id: k, x: data[k].X, y: data[k].Y});
     }
   });
-
-  function unload() {
-    socket.emit('del', {id: gopher.id});
-  }
-
-  window.addEventListener('unload', unload);
-
 })();
